@@ -64,15 +64,9 @@ public class ThingService {
   }
 
   public ThingModel createThing(CreateThingModel thing) {
-    try {
-      ThingEntity entity = new ThingEntity(thing.getId(), thing.getName(), thing.isEnabled());
-      entity = thingRepository.save(entity);
-      return mapper.toModel(entity);
-    } catch (DuplicateKeyException e) {
-      throw new ThingDuplicateException(thing.getId());
-    } catch (OptimisticLockingFailureException e) {
-      throw new ConcurrentUpdateException();
-    }
+    ThingEntity entity = new ThingEntity(thing.getId(), thing.getName(), thing.isEnabled());
+    entity = thingRepository.save(entity);
+    return mapper.toModel(entity);
   }
 
   public ThingModel updateThing(String id, UpdateThingModel thing) {

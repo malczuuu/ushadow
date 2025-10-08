@@ -18,7 +18,6 @@ A simple IoT device shadow application.
 - [MQTT API](#mqtt-api)
     - [Topics](#topics)
     - [Messages](#messages)
-- [Trivia](#trivia)
 
 ## Device State Replica
 
