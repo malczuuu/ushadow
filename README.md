@@ -36,16 +36,17 @@ requirements.
 The application requires MongoDB and RabbitMQ to be up and running.
 
 ```bash
-$ docker-compose up -d
+cd ushadow-localhost/
+docker-compose up -d
 ```
 
-Consider browsing [`docker-compose.yaml`](./docker-compose.yaml) file and [`conf/`](./conf)
-directory for more detail.
+Consider browsing [`docker-compose.yaml`](ushadow-localhost/docker-compose.yaml) file and 
+[`conf/`](ushadow-localhost/conf) directory for more detail.
 
 Run the application with `bootRun` task.
 
 ```bash
-$ ./gradlew bootRun
+./gradlew bootRun
 ```
 
 Alternatively, the application can be run by building and executing the jarfile or by using most
@@ -65,18 +66,16 @@ Content-Type: application/json
 
 ```json
 {
-  "content": [
-    {
-      "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
-      "name": "SmartCamera03",
-      "created_date": "2021-10-01T11:32:12.671Z",
-      "last_modified_date": "2021-10-01T12:31:42.239Z"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 23,
-  "totalPages": 2
+    "content": [ {
+        "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
+        "name": "SmartCamera03",
+        "created_date": "2021-10-01T11:32:12.671Z",
+        "last_modified_date": "2021-10-01T12:31:42.239Z"
+    } ],
+    "page": 0,
+    "size": 20,
+    "totalElements": 23,
+    "totalPages": 2
 }
 ```
 
@@ -90,11 +89,11 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
-  "name": "SmartCamera03",
-  "created_date": "2021-10-01T11:32:12.671Z",
-  "last_modified_date": "2021-10-01T12:31:42.239Z",
-  "version": 5
+    "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
+    "name": "SmartCamera03",
+    "created_date": "2021-10-01T11:32:12.671Z",
+    "last_modified_date": "2021-10-01T12:31:42.239Z",
+    "version": 5
 }
 ```
 
@@ -108,8 +107,8 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
-  "name": "SmartCamera03"
+    "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
+    "name": "SmartCamera03"
 }
 ```
 
@@ -121,11 +120,11 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
-  "name": "SmartCamera03",
-  "created_date": "2021-10-01T11:32:12.671Z",
-  "last_modified_date": "2021-10-01T11:32:12.671Z",
-  "version": 0
+    "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
+    "name": "SmartCamera03",
+    "created_date": "2021-10-01T11:32:12.671Z",
+    "last_modified_date": "2021-10-01T11:32:12.671Z",
+    "version": 0
 }
 ```
 
@@ -139,8 +138,8 @@ Content-Type: application/json
 
 ```json
 {
-  "name": "SmartCamera03",
-  "version": 4
+    "name": "SmartCamera03",
+    "version": 4
 }
 ```
 
@@ -152,11 +151,11 @@ Content-Type: application/json
 
 ```json
 {
-  "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
-  "name": "SmartCamera03",
-  "created_date": "2021-10-01T11:32:12.671Z",
-  "last_modified_date": "2021-10-01T12:31:42.239Z",
-  "version": 5
+    "id": "d2bfcd45-94a7-43c9-98af-87893cfc2c66",
+    "name": "SmartCamera03",
+    "created_date": "2021-10-01T11:32:12.671Z",
+    "last_modified_date": "2021-10-01T12:31:42.239Z",
+    "version": 5
 }
 ```
 
@@ -174,17 +173,17 @@ Content-Type: application/json
 
 ```json
 {
-  "desired": {
-    "light_on": true,
-    "resolution": "1080p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "reported": {
-    "light_on": true,
-    "resolution": "480p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "version": 8
+    "desired": {
+        "light_on": true,
+        "resolution": "1080p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "reported": {
+        "light_on": true,
+        "resolution": "480p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "version": 8
 }
 ```
 
@@ -198,12 +197,12 @@ Content-Type: application/json
 
 ```json
 {
-  "desired": {
-    "light_on": false,
-    "resolution": "360p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "version": 8
+    "desired": {
+        "light_on": false,
+        "resolution": "360p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "version": 8
 }
 ```
 
@@ -216,17 +215,17 @@ Content-Type: application/json
 
 ```json
 {
-  "desired": {
-    "light_on": false,
-    "resolution": "360p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "reported": {
-    "light_on": true,
-    "resolution": "1080p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "version": 9
+    "desired": {
+        "light_on": false,
+        "resolution": "360p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "reported": {
+        "light_on": true,
+        "resolution": "1080p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "version": 9
 }
 ```
 
@@ -241,26 +240,21 @@ Content-Type: application/json
 
 ```json
 {
-  "content": [
-    {
-      "action_type": "reported_update",
-      "violations": [
-        {
-          "path": "reported.qwertyuiopoghyjrfogsdfogjdfgsldfkjgsldkfgjhsldfkghjsfdghklsfgjhslfjghslfdjgs;dfljhs;dlfkjh;sdlfkghjs;dflkgjsld;fgkjs;dflgksjdfl;ghsjdfhlkdjflghkdfgjdfghfghfghfiuytrewqwertyuioiuytrewqwertyuiopoiuytrewsdfghuytfghjuytfghjiuytfghjuygtbnjuygvbnjuygtvbnhjytgfvbhgfvbhytfvbhytrfvghuytfvbnjuyg",
-          "message": "must have field name matching ^[a-zA-Z]\\w*$"
-        },
-        {
-          "path": "reported.'qwertyuiopoghyjrfogsdfogjd...'",
-          "message": "must have field name no longer than 256"
-        }
-      ],
-      "created_date": "2021-10-10T07:46:38Z"
-    }
-  ],
-  "page": 0,
-  "size": 20,
-  "totalElements": 23,
-  "totalPages": 2
+    "content": [ {
+        "action_type": "reported_update",
+        "violations": [ {
+            "path": "reported.qwertyuiopoghyjrfogsdfogjdfgsldfkjgsldkfgjhsldfkghjsfdghklsfgjhslfjghslfdjgs;dfljhs;dlfkjh;sdlfkghjs;dflkgjsld;fgkjs;dflgksjdfl;ghsjdfhlkdjflghkdfgjdfghfghfghfiuytrewqwertyuioiuytrewqwertyuiopoiuytrewsdfghuytfghjuytfghjiuytfghjuygtbnjuygvbnjuygtvbnhjytgfvbhgfvbhytfvbhytrfvghuytfvbnjuyg",
+            "message": "must have field name matching ^[a-zA-Z]\\w*$"
+        }, {
+            "path": "reported.'qwertyuiopoghyjrfogsdfogjd...'",
+            "message": "must have field name no longer than 256"
+        } ],
+        "created_date": "2021-10-10T07:46:38Z"
+    } ],
+    "page": 0,
+    "size": 20,
+    "totalElements": 23,
+    "totalPages": 2
 }
 ```
 
@@ -283,7 +277,7 @@ on `(...)/shadow/receive` topic.
 
 ```json
 {
-  "token": "9ocsicS1pdaldXDqLoU9"
+    "token": "9ocsicS1pdaldXDqLoU9"
 }
 ```
 
@@ -297,22 +291,22 @@ A message received on `(...)/shadow/receive` topic, with the latest shadow updat
 
 ```json
 {
-  "type": "shadow",
-  "shadow": {
-    "desired": {
-      "light_on": true,
-      "resolution": "1080p",
-      "upload_url": "https://10.34.231.12:8443/cams"
+    "type": "shadow",
+    "shadow": {
+        "desired": {
+            "light_on": true,
+            "resolution": "1080p",
+            "upload_url": "https://10.34.231.12:8443/cams"
+        },
+        "reported": {
+            "light_on": true,
+            "resolution": "1080p",
+            "upload_url": "https://10.34.231.12:8443/cams"
+        },
+        "last_modified_date": "2021-10-01T00:23:11Z",
+        "version": 31
     },
-    "reported": {
-      "light_on": true,
-      "resolution": "1080p",
-      "upload_url": "https://10.34.231.12:8443/cams"
-    },
-    "last_modified_date": "2021-10-01T00:23:11Z",
-    "version": 31
-  },
-  "token": "9ocsicS1pdaldXDqLoU9"
+    "token": "9ocsicS1pdaldXDqLoU9"
 }
 ```
 
@@ -333,13 +327,13 @@ Afterwards, `ShadowEnvelope` message is sent as a response on `(...)/shadow/rece
 
 ```json
 {
-  "type": "reported",
-  "reported": {
-    "light_on": true,
-    "resolution": "1080p",
-    "upload_url": "https://10.34.231.12:8443/cams"
-  },
-  "token": "9ocsicS1pdaldXDqLoU9"
+    "type": "reported",
+    "reported": {
+        "light_on": true,
+        "resolution": "1080p",
+        "upload_url": "https://10.34.231.12:8443/cams"
+    },
+    "token": "9ocsicS1pdaldXDqLoU9"
 }
 ```
 
