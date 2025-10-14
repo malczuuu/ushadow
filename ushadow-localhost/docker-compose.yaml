@@ -1,0 +1,44 @@
+services:
+  mongo:
+    image: mongo:8.0.13-noble
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - "127.0.0.1:27017:27017"
+    healthcheck:
+      test: |
+        echo "try { rs.status() } catch (err) { rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]}) }" | mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    volumes:
+      - "mongo_config:/data/configdb"
+      - "mongo_data:/data/db"
+      - "./conf/mongo/01-collections.init.js:/docker-entrypoint-initdb.d/01-collections.init.js"
+    networks:
+      - mongo
+
+  rabbitmq:
+    image: rabbitmq:4.1.4-management-alpine
+    ports:
+      - "127.0.0.1:1883:1883"
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:8883:8883"
+      - "127.0.0.1:15672:15672"
+    volumes:
+      - "./conf/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro"
+      - "./conf/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro"
+      - "./conf/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro"
+      - "rabbitmq_data:/var/lib/rabbitmq"
+    networks:
+      - rabbitmq
+
+volumes:
+  mongo_config:
+  mongo_data:
+  rabbitmq_data:
+
+networks:
+  mongo:
+  rabbitmq:
