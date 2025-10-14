@@ -1,9 +1,10 @@
 import com.diffplug.spotless.LineEnding
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     id("java")
-    id("org.springframework.boot").version("3.1.0")
-    id("io.spring.dependency-management").version("1.1.0")
+    id("org.springframework.boot").version("3.0.0")
+    id("io.spring.dependency-management").version("1.1.7")
     id("com.diffplug.spotless").version("8.0.0")
 }
 
@@ -28,7 +29,7 @@ repositories {
     }
 }
 
-configurations.configureEach {
+configurations.all {
     resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
 
@@ -69,6 +70,13 @@ spotless {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+
     systemProperty("user.language", "en")
     systemProperty("user.country", "US")
+
+    testLogging {
+        events("passed", "skipped", "failed")
+        exceptionFormat = TestExceptionFormat.SHORT
+        showStandardStreams = true
+    }
 }
