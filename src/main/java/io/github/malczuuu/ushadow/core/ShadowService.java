@@ -1,7 +1,6 @@
 package io.github.malczuuu.ushadow.core;
 
 import io.github.malczuuu.ushadow.configuration.RabbitConfiguration;
-import io.github.malczuuu.ushadow.core.exception.ConcurrentUpdateException;
 import io.github.malczuuu.ushadow.core.mapper.ShadowMapper;
 import io.github.malczuuu.ushadow.entity.ShadowEntity;
 import io.github.malczuuu.ushadow.entity.ShadowRepository;
@@ -12,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.amqp.rabbit.core.RabbitOperations;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,11 +36,7 @@ public class ShadowService {
     shadow.setDesired(new HashMap<>(update.getDesired()));
     shadow.setVersion(update.getVersion());
 
-    try {
-      shadow = shadowRepository.save(shadow);
-    } catch (OptimisticLockingFailureException e) {
-      throw new ConcurrentUpdateException();
-    }
+    shadow = shadowRepository.save(shadow);
 
     ShadowModel model = mapper.toModel(shadow);
     rabbitOperations.convertAndSend(
@@ -62,11 +56,7 @@ public class ShadowService {
   public ShadowModel updateShadow(String thingId, Map<String, Object> reported) {
     ShadowEntity shadow = fetchThing(thingId);
     shadow.setReported(new HashMap<>(reported));
-    try {
-      shadow = shadowRepository.save(shadow);
-    } catch (OptimisticLockingFailureException e) {
-      throw new ConcurrentUpdateException();
-    }
+    shadow = shadowRepository.save(shadow);
     return mapper.toModel(shadow);
   }
 }

@@ -4,21 +4,19 @@ import io.github.malczuuu.problem4j.core.Problem;
 import io.github.malczuuu.problem4j.core.ProblemBuilder;
 import io.github.malczuuu.problem4j.core.ProblemStatus;
 import io.github.malczuuu.problem4j.spring.web.context.ProblemContext;
-import io.github.malczuuu.problem4j.spring.web.resolver.ProblemResolver;
+import io.github.malczuuu.problem4j.spring.web.resolver.AbstractProblemResolver;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @Component
-public class DuplicateKeyResolver implements ProblemResolver {
+public class DuplicateKeyResolver extends AbstractProblemResolver {
 
-  @Override
-  public Class<? extends Exception> getExceptionClass() {
-    return DuplicateKeyException.class;
+  public DuplicateKeyResolver() {
+    super(DuplicateKeyException.class);
   }
 
   @Override

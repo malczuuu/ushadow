@@ -1,7 +1,5 @@
 package io.github.malczuuu.ushadow.core;
 
-import io.github.malczuuu.ushadow.core.exception.ConcurrentUpdateException;
-import io.github.malczuuu.ushadow.core.exception.ThingDuplicateException;
 import io.github.malczuuu.ushadow.core.exception.ThingNotFoundException;
 import io.github.malczuuu.ushadow.core.mapper.ThingMapper;
 import io.github.malczuuu.ushadow.entity.ShadowRepository;
@@ -13,8 +11,6 @@ import io.github.malczuuu.ushadow.model.PasswordModel;
 import io.github.malczuuu.ushadow.model.ThingModel;
 import io.github.malczuuu.ushadow.model.ThingPageModel;
 import io.github.malczuuu.ushadow.model.UpdateThingModel;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -74,11 +70,7 @@ public class ThingService {
     entity.setName(thing.getName());
     entity.setEnabled(thing.isEnabled());
     entity.setVersion(thing.getVersion());
-    try {
-      entity = thingRepository.save(entity);
-    } catch (OptimisticLockingFailureException e) {
-      throw new ConcurrentUpdateException();
-    }
+    entity = thingRepository.save(entity);
     return mapper.toModel(entity);
   }
 
@@ -87,11 +79,7 @@ public class ThingService {
     entity.setPassword(password.getPassword());
     entity.setVersion(password.getVersion());
     entity = thingRepository.save(entity);
-    try {
-      thingRepository.save(entity);
-    } catch (OptimisticLockingFailureException e) {
-      throw new ConcurrentUpdateException();
-    }
+    thingRepository.save(entity);
   }
 
   public void deleteThing(String id) {

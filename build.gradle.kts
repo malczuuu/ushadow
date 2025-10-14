@@ -60,7 +60,7 @@ spotless {
     }
 
     java {
-        target("problem4j-*/src/**/*.java")
+        target("src/**/*.java")
 
         googleJavaFormat("1.28.0")
         forbidWildcardImports()
