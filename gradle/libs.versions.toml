@@ -1,7 +1,7 @@
 [versions]
 problem4j-spring = "1.1.0"
 spotless = "8.0.0"
-spring-boot = "3.5.1"
+spring-boot = "3.5.7"
 springdoc-openapi = "2.8.14"
 
 [plugins]
