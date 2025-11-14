@@ -1,0 +1,33 @@
+[versions]
+problem4j-spring = "1.0.0"
+spotless = "8.0.0"
+spring-boot = "3.5.1"
+springdoc-openapi = "2.8.7"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+[libraries]
+# managed by spring-boot-dependencies
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-amqp = { module = "org.springframework.boot:spring-boot-starter-amqp" }
+spring-boot-starter-data-mongodb = { module = "org.springframework.boot:spring-boot-starter-data-mongodb" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
+spring-rabbit-test = { module = "org.springframework.amqp:spring-rabbit-test" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+testcontainers-mongodb = { module = "org.testcontainers:mongodb" }
+testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq" }
+
+# managed by problem4j-spring-bom
+problem4j-spring-bom = { module = "io.github.malczuuu.problem4j:problem4j-spring-bom", version.ref = "problem4j-spring" }
+problem4j-spring-webmvc = { module = "io.github.malczuuu.problem4j:problem4j-spring-webmvc" }
+
+# managed by springdoc-openapi-bom
+springdoc-openapi-bom = { module = "org.springdoc:springdoc-openapi-bom", version.ref = "springdoc-openapi" }
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui" }

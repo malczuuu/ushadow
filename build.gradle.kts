@@ -1,57 +1,60 @@
 import com.diffplug.spotless.LineEnding
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     id("java")
-    id("org.springframework.boot").version("3.0.0")
-    id("io.spring.dependency-management").version("1.1.7")
-    id("com.diffplug.spotless").version("8.0.0")
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.spring.boot)
 }
 
-group = "io.github.malczuuu"
-version = "1.0.0-SNAPSHOT"
+group = "io.github.malczuuu.ushadow"
+
+/**
+ * In order to avoid hardcoding snapshot versions, we derive the version from the current Git commit hash. For CI/CD add
+ * -Pversion={releaseVersion} parameter to match Git tag.
+ */
+version =
+    if (version == "unspecified") {
+        getSnapshotVersion(rootProject.rootDir)
+    } else {
+        version
+    }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 repositories {
     mavenCentral()
-
-    maven {
-        url = uri("https://central.sonatype.com/repository/maven-snapshots/")
-        content {
-            includeGroup("io.github.malczuuu.problem4j")
-        }
-        mavenContent {
-            snapshotsOnly()
-        }
-    }
-}
-
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor(0, TimeUnit.SECONDS)
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.springframework.boot:spring-boot-starter-amqp")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(platform(libs.spring.boot.dependencies))
+    implementation(platform(libs.problem4j.spring.bom))
+    implementation(platform(libs.springdoc.openapi.bom))
 
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+    implementation(libs.spring.boot.starter.actuator)
+    implementation(libs.spring.boot.starter.amqp)
+    implementation(libs.spring.boot.starter.data.mongodb)
+    implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.web)
 
-    implementation("io.github.malczuuu.problem4j:problem4j-spring-webmvc:1.0.0-SNAPSHOT") {
-        isChanging = true
-    }
+    implementation(libs.problem4j.spring.webmvc)
+
+    implementation(libs.springdoc.openapi.starter.webmvc.ui)
+
+    runtimeOnly(libs.micrometer.registry.prometheus)
+
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.rabbit.test)
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.mongodb)
+    testImplementation(libs.testcontainers.rabbitmq)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 spotless {
     format("misc") {
-        target("**/*.gradle.kts", "**/.gitattributes", "**/.gitignore")
+        target("**/.gitattributes", "**/.gitignore")
 
         trimTrailingWhitespace()
         leadingTabsToSpaces(4)
@@ -60,23 +63,40 @@ spotless {
     }
 
     java {
-        target("src/**/*.java")
+        target("**/src/**/*.java")
 
         googleJavaFormat("1.28.0")
         forbidWildcardImports()
         lineEndings = LineEnding.UNIX
     }
+
+    kotlin {
+        target("**/src/**/*.kt")
+
+        ktfmt("0.59").metaStyle()
+        endWithNewline()
+        lineEndings = LineEnding.UNIX
+    }
+
+    kotlinGradle {
+        target("**/*.gradle.kts")
+
+        ktlint("1.7.1").editorConfigOverride(mapOf("max_line_length" to "120"))
+        endWithNewline()
+        lineEndings = LineEnding.UNIX
+    }
+}
+
+tasks.named<Jar>("jar") {
+    enabled = true
 }
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-
     systemProperty("user.language", "en")
     systemProperty("user.country", "US")
 
     testLogging {
         events("passed", "skipped", "failed")
-        exceptionFormat = TestExceptionFormat.SHORT
-        showStandardStreams = true
     }
 }
