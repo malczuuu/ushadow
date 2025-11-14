@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class DuplicateKeyResolver extends AbstractProblemResolver {
 
+  public static final Pattern EXCEPTION_INDEX_PATTERN =
+      Pattern.compile("duplicate key error collection: \\w+\\.(\\w+) index: (\\w+)");
+
   public DuplicateKeyResolver() {
     super(DuplicateKeyException.class);
   }
@@ -28,9 +31,7 @@ public class DuplicateKeyResolver extends AbstractProblemResolver {
     String collection = null;
     String index = null;
 
-    Pattern pattern =
-        Pattern.compile("duplicate key error collection: \\w+\\.(\\w+) index: (\\w+)");
-    Matcher matcher = pattern.matcher(message);
+    Matcher matcher = EXCEPTION_INDEX_PATTERN.matcher(message);
     if (matcher.find()) {
       collection = matcher.group(1);
       index = matcher.group(2);

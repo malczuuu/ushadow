@@ -11,7 +11,8 @@ public class ThingNotFoundException extends ProblemException {
         Problem.builder()
             .title(HttpStatus.NOT_FOUND.getReasonPhrase())
             .status(HttpStatus.NOT_FOUND.value())
-            .detail("Thing \"" + id + "\" not found")
+            .detail("thing not found")
+            .extension("id", id)
             .build());
   }
 }
