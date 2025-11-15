@@ -88,7 +88,7 @@ spotless {
 }
 
 tasks.named<Jar>("jar") {
-    enabled = true
+    enabled = false
 }
 
 tasks.withType<Test>().configureEach {
